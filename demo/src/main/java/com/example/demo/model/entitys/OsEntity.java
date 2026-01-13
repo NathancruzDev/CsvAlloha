@@ -1,4 +1,123 @@
 package com.example.demo.model.entitys;
 
-public class OsEntity {
+import com.example.demo.Interfaces.CoordinateInterface;
+import com.example.demo.model.UnitEnum;
+
+import java.time.LocalDate;
+
+public class OsEntity implements CoordinateInterface {
+
+    private Integer contract;
+    private Integer OsNumber;
+    private String occurrence;
+    private UnitEnum unit;
+    //Data da Triagem
+    private LocalDate screeningDate;
+    private Double distanceBaseOs;
+    private String area;
+    private Double latitude;
+    private Double longitude;
+    private String responsibleScreening;
+
+    public OsEntity(Integer contract, Integer osNumber, String occurrence, UnitEnum unit, LocalDate screeningDate,
+                    Double distanceBaseOs, String area, Double latitude, Double longitude, String responsibleScreening) {
+        this.contract = contract;
+        OsNumber = osNumber;
+        this.occurrence = occurrence;
+        this.unit = unit;
+        this.screeningDate = screeningDate;
+        this.distanceBaseOs = distanceBaseOs;
+        this.area = area;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.responsibleScreening = responsibleScreening;
+    }
+
+    public Integer getContract() {
+        return contract;
+    }
+
+    public void setContract(Integer contract) {
+        this.contract = contract;
+    }
+
+    public Integer getOsNumber() {
+        return OsNumber;
+    }
+
+    public void setOsNumber(Integer osNumber) {
+        OsNumber = osNumber;
+    }
+
+    public String getOccurrence() {
+        return occurrence;
+    }
+
+    public void setOccurrence(String occurrence) {
+        this.occurrence = occurrence;
+    }
+
+    public UnitEnum getUnit() {
+        return unit;
+    }
+
+    public void setUnit(UnitEnum unit) {
+        this.unit = unit;
+    }
+
+    public LocalDate getScreeningDate() {
+        return screeningDate;
+    }
+
+    public void setScreeningDate(LocalDate screeningDate) {
+        this.screeningDate = screeningDate;
+    }
+
+    public Double getDistanceBaseOs() {
+        return distanceBaseOs;
+    }
+
+    public void setDistanceBaseOs(Double distanceBaseOs) {
+        this.distanceBaseOs = distanceBaseOs;
+    }
+
+    public String getArea() {
+        return area;
+    }
+
+    public void setArea(String area) {
+        this.area = area;
+    }
+
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
+    }
+
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
+    }
+
+    public String getResponsibleScreening() {
+        return responsibleScreening;
+    }
+
+    public void setResponsibleScreening(String responsibleScreening) {
+        this.responsibleScreening = responsibleScreening;
+    }
+
+
+    @Override
+    public String area() {
+        return "";
+    }
+
+    @Override
+    public Double getLatitude() {
+        return 0.0;
+    }
+
+    @Override
+    public Double getLongitude() {
+        return 0.0;
+    }
 }
