@@ -8,7 +8,7 @@ import java.time.LocalDate;
 public class OsEntity implements CoordinateInterface {
 
     private Integer contract;
-    private Integer OsNumber;
+    private Integer osNumber;
     private String occurrence;
     private UnitEnum unit;
     //Data da Triagem
@@ -22,7 +22,7 @@ public class OsEntity implements CoordinateInterface {
     public OsEntity(Integer contract, Integer osNumber, String occurrence, UnitEnum unit, LocalDate screeningDate,
                     Double distanceBaseOs, String area, Double latitude, Double longitude, String responsibleScreening) {
         this.contract = contract;
-        OsNumber = osNumber;
+        osNumber = osNumber;
         this.occurrence = occurrence;
         this.unit = unit;
         this.screeningDate = screeningDate;
@@ -42,11 +42,11 @@ public class OsEntity implements CoordinateInterface {
     }
 
     public Integer getOsNumber() {
-        return OsNumber;
+        return osNumber;
     }
 
     public void setOsNumber(Integer osNumber) {
-        OsNumber = osNumber;
+        this.osNumber = osNumber;
     }
 
     public String getOccurrence() {
