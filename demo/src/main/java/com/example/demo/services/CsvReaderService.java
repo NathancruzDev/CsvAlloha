@@ -6,14 +6,13 @@ import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
+
 
 @Service
 public class CsvReaderService {
@@ -26,23 +25,30 @@ public class CsvReaderService {
             throw new RuntimeException("File not exists.");
         }
 
-        ArrayList<String> arrayList=new ArrayList<>();
-        try(BufferedReader bufferedReader=new BufferedReader(new FileReader(fileCsv))){
-                String line=bufferedReader.readLine();
-                while(line != null){
-                    arrayList.add(line);
+        List<OsDto> result = new ArrayList<>();
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(fileCsv))) {
+
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                String[] columns = line.split(",");
+
+                if (columns.length != 10) {
+                    throw new RuntimeException("Invalid row, expected 10 columns:" + line);
                 }
-                // a cada 10 parametros ele cria um novo objeto
-                if(arrayList != null){
-                    arrayList.stream().map(x -> x/10).collect(Collectors.toCollection())
-                }
-        }
-        catch(Exception e){
+
+                ArrayList<String> values = new ArrayList<>(List.of(columns));
+
+                OsDto dto = makeDto(values);
+
+                result.add(dto);
+            }
+
+        } catch (Exception e) {
             e.printStackTrace();
-            throw  new RuntimeException(e);
-
+            throw new RuntimeException(e);
         }
 
+        return result;
 
     }
 
@@ -72,15 +78,10 @@ public class CsvReaderService {
 
         String latitudeStr = obj.get(7);
         Double latitude=Double.parseDouble(latitudeStr.trim());
-        
+
         String longitudeStr = obj.get(8);
         Double longitude=Double.parseDouble(longitudeStr.trim());
         String responsibleScreening = obj.get(9);
-
-
-
-
-
 
         return new OsDto(contract,osNumber,ocurrence,unit,screeningDate,
                 distanceBaseOs,area,
