@@ -1,6 +1,6 @@
 package com.example.demo.model.entitys;
 
-import com.example.demo.Interfaces.CoordinateInterface;
+import com.example.demo.repository.CoordinateInterface;
 import com.example.demo.model.UnitEnum;
 
 public class BaseEntity implements CoordinateInterface {

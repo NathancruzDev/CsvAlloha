@@ -16,6 +16,7 @@ public record BaseDto(
         @NotNull
         Double longitude
 ) {
+
     @Override
     public String toString() {
         return String.format("""

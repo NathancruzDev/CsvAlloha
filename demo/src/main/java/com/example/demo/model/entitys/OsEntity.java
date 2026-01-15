@@ -1,6 +1,6 @@
 package com.example.demo.model.entitys;
 
-import com.example.demo.Interfaces.CoordinateInterface;
+import com.example.demo.repository.CoordinateInterface;
 import com.example.demo.model.UnitEnum;
 
 import java.time.LocalDate;
@@ -31,6 +31,9 @@ public class OsEntity implements CoordinateInterface {
         this.latitude = latitude;
         this.longitude = longitude;
         this.responsibleScreening = responsibleScreening;
+    }
+
+    public OsEntity() {
     }
 
     public Integer getContract() {
