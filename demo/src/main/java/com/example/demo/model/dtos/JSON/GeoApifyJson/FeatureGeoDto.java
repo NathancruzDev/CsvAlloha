@@ -1,4 +1,5 @@
 package com.example.demo.model.dtos.JSON.GeoApifyJson;
 
-public class Feature {
+public class FeatureGeoDto {
+    public DistanceResponseDto distanceResponseDto;
 }

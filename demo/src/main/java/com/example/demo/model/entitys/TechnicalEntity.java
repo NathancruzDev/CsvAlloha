@@ -12,6 +12,7 @@ public class TechnicalEntity  {
     Double longitude;
 
     String car;
+    //Kilometro que o carro faz por Litro = KmCarXL
     Double kmCarXL;
 
     public TechnicalEntity(String name, Integer osNumber, Integer contract, Double latitude, Double longitude, String car, Double kmCarXL) {

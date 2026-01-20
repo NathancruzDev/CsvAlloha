@@ -1,6 +1,8 @@
 package com.example.demo.model.dtos;
 
 import com.example.demo.model.UnitEnum;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.*;
 
@@ -17,6 +19,7 @@ public record OsDto(
         @NotNull(message = "OS number cannot be null")
         @Min(value = 1, message = "OS number must be at least 1")
         @Max(value = 30, message = "OS number cannot exceed 30")
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
         Integer osNumber,
         @NotBlank(message = "This field needs some information.")
         String occurence,

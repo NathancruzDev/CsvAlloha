@@ -1,5 +1,6 @@
 package com.example.demo.model.entitys;
 
+import com.example.demo.model.dtos.OsDto;
 import com.example.demo.repository.CoordinateInterface;
 import com.example.demo.model.UnitEnum;
 
@@ -34,6 +35,20 @@ public class OsEntity implements CoordinateInterface {
     }
 
     public OsEntity() {
+    }
+
+    public OsEntity(OsDto osDto) {
+        this.contract=osDto.contract();
+        this.osNumber=osDto.osNumber();
+        this.occurrence = osDto.occurence();
+        this.unit = osDto.unit();
+        this.screeningDate = osDto.screeningDate();
+        this.distanceBaseOs = osDto.distanceBaseOs();
+        this.area = osDto.area();
+        this.latitude =  osDto.latitude();
+        this.longitude = osDto.longitude();
+        this.responsibleScreening = osDto.responsibleScreening();
+
     }
 
     public Integer getContract() {
