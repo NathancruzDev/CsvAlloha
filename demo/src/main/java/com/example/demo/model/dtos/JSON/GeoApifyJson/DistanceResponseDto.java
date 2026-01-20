@@ -1,6 +1,6 @@
 package com.example.demo.model.dtos;
 
-public record DistanceRespondeDto(
+public record DistanceResponseDto(
         Double distanceKm
 ) {
 
