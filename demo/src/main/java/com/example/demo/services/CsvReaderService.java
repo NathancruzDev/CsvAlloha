@@ -4,10 +4,12 @@ import com.example.demo.model.UnitEnum;
 import com.example.demo.model.dtos.OsDto;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.InputStreamReader;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
@@ -22,14 +24,14 @@ public class CsvReaderService {
 
 
     @Transactional
-    public List<OsDto> fileCsvReader(File fileCsv) {
+    public List<OsDto> fileCsvReader(MultipartFile fileCsv) {
 
-        if(!fileCsv.exists()){
+        if(fileCsv==null || fileCsv.isEmpty()){
             throw new RuntimeException("File not exists.");
         }
 
         List<OsDto> result = new ArrayList<>();
-        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(fileCsv))) {
+        try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(fileCsv.getInputStream()))) {
 
             String line;
             while ((line = bufferedReader.readLine()) != null) {

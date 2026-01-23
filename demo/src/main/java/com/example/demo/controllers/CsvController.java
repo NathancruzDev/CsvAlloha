@@ -8,6 +8,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.io.File;
@@ -35,7 +36,7 @@ public class CsvController {
 
     @PostMapping("upFile")
     @Transactional
-    public ResponseEntity<List<OsDto>> postFile(@RequestParam MultipartFile file,UriComponentsBuilder uriComponentsBuilder){
+    public ResponseEntity<List<OsDto>> postFile(@RequestParam MultipartFile file, UriComponentsBuilder uriComponentsBuilder){
         List<OsDto> createdList = calcServicePerma.makeOsByCsvList(file);
         var uri= uriComponentsBuilder.path("csvB2B/upFile").buildAndExpand(createdList).toUri();
         return ResponseEntity.created(uri).body(createdList);

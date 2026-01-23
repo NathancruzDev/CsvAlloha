@@ -6,6 +6,7 @@ import com.example.demo.repository.OsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -31,7 +32,7 @@ public class CalcServicePerma {
         osRepository.save(osEntity);
         return osDto;
     }
-    public List<OsDto> makeOsByCsvList(File filePath) {
+    public List<OsDto> makeOsByCsvList(MultipartFile filePath) {
         List<OsDto> osDtoList = csvReaderService.fileCsvReader(filePath);
         List<OsEntity> osEntitys = new ArrayList<>();
 
@@ -53,6 +54,7 @@ public class CalcServicePerma {
         osRepository.saveAll(osEntitys);
         return osDtoList;
     }
+
     public OsDto getOsEntity(@RequestParam Integer os){
         Optional<OsEntity> osEntity=osRepository.findByOsNumber(os);
         if(!(osRepository.findByOsNumber(osEntity.get().getOsNumber()).isEmpty())){
