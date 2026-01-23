@@ -2,6 +2,7 @@ package com.example.demo.services;
 
 import com.example.demo.model.UnitEnum;
 import com.example.demo.model.dtos.OsDto;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
@@ -19,6 +20,8 @@ public class CsvReaderService {
     String path="C:Downloads\teste";
     File fileCsv=new File(path);
 
+
+    @Transactional
     public List<OsDto> fileCsvReader(File fileCsv) {
 
         if(!fileCsv.exists()){

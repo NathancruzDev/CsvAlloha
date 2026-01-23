@@ -10,6 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.io.File;
+import java.util.List;
 
 
 @RestController
@@ -25,10 +27,18 @@ public class CsvController {
 
     @PostMapping("upOsCsv")
     @Transactional
-    public ResponseEntity<OsDto> postOsCsv(@RequestParam OsDto osDto, UriComponentsBuilder uriComponentsBuilder){
+    public ResponseEntity<OsDto> postOsCsv( @RequestBody OsDto osDto, UriComponentsBuilder uriComponentsBuilder){
         OsDto createdOs=calcServicePerma.makeOs(osDto);
         var uri= uriComponentsBuilder.path("csvB2B/upOsCsv/{osNumber}").buildAndExpand(createdOs.osNumber()).toUri();
         return ResponseEntity.created(uri).body(createdOs);
+    }
+
+    @PostMapping("upFile")
+    @Transactional
+    public ResponseEntity<List<OsDto>> postFile(@RequestParam MultipartFile file,UriComponentsBuilder uriComponentsBuilder){
+        List<OsDto> createdList = calcServicePerma.makeOsByCsvList(file);
+        var uri= uriComponentsBuilder.path("csvB2B/upFile").buildAndExpand(createdList).toUri();
+        return ResponseEntity.created(uri).body(createdList);
     }
 
     @GetMapping("getOsCSV")
@@ -36,4 +46,6 @@ public class CsvController {
         OsDto osReturned=calcServicePerma.getOsEntity(os);
         return ResponseEntity.ok(osReturned);
     }
+
+
 }
