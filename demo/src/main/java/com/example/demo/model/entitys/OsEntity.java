@@ -26,9 +26,10 @@ public class OsEntity implements CoordinateInterface {
     private Double latitude;
     private Double longitude;
     private String responsibleScreening;
+    private boolean isEnable;
 
     public OsEntity(Integer id,Integer contract, Integer osNumber, String occurrence, UnitEnum unit, LocalDate screeningDate,
-                    Double distanceBaseOs, String area, Double latitude, Double longitude, String responsibleScreening) {
+                    Double distanceBaseOs, String area, Double latitude, Double longitude, String responsibleScreening,boolean isEnable) {
         this.id=id;
         this.contract = contract;
         this.osNumber = osNumber;
@@ -40,6 +41,7 @@ public class OsEntity implements CoordinateInterface {
         this.latitude = latitude;
         this.longitude = longitude;
         this.responsibleScreening = responsibleScreening;
+        this.isEnable= isEnable;
     }
 
     public OsEntity() {
@@ -57,7 +59,21 @@ public class OsEntity implements CoordinateInterface {
         this.latitude =  osDto.latitude();
         this.longitude = osDto.longitude();
         this.responsibleScreening = osDto.responsibleScreening();
+        this.isEnable=osDto.isEnable();
+    }
 
+    public OsEntity(Integer contract, Integer id, Integer osNumber, String occurrence, UnitEnum unit, LocalDate screeningDate, Double distanceBaseOs, String area, Double latitude, Double longitude, String responsibleScreening) {
+        this.contract = contract;
+        this.id = id;
+        this.osNumber = osNumber;
+        this.occurrence = occurrence;
+        this.unit = unit;
+        this.screeningDate = screeningDate;
+        this.distanceBaseOs = distanceBaseOs;
+        this.area = area;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.responsibleScreening = responsibleScreening;
     }
 
     public Integer getId() {
@@ -136,6 +152,13 @@ public class OsEntity implements CoordinateInterface {
         this.responsibleScreening = responsibleScreening;
     }
 
+    public boolean isEnable() {
+        return isEnable;
+    }
+
+    public void setEnable(boolean enable) {
+        isEnable = enable;
+    }
 
     @Override
     public String area() {

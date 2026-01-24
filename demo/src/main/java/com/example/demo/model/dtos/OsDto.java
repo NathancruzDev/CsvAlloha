@@ -42,6 +42,7 @@ public record OsDto(
         @NotBlank
         @Size(min=4,max=80)
         String responsibleScreening
+
 ) {
 
 

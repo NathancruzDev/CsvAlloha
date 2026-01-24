@@ -18,6 +18,7 @@ public class BaseEntity implements CoordinateInterface {
     private String Latitude;
     private String Longitude;
 
+
     public BaseEntity(Integer id,UnitEnum unit, String adress, String area, String latitude, String longitude) {
         this.id=id;
         this.unit = unit;
@@ -26,6 +27,7 @@ public class BaseEntity implements CoordinateInterface {
         Latitude = latitude;
         Longitude = longitude;
     }
+
 
     public Integer getId() {
         return id;
