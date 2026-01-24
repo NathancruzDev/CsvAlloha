@@ -1,8 +1,18 @@
 package com.example.demo.model.entitys;
 
 import com.example.demo.repository.CoordinateInterface;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
+@Entity
 public class TechnicalEntity  {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    Integer id;
+
+
     String name;
 
     Integer osNumber;
@@ -15,7 +25,8 @@ public class TechnicalEntity  {
     //Kilometro que o carro faz por Litro = KmCarXL
     Double kmCarXL;
 
-    public TechnicalEntity(String name, Integer osNumber, Integer contract, Double latitude, Double longitude, String car, Double kmCarXL) {
+    public TechnicalEntity(Integer id,String name, Integer osNumber, Integer contract, Double latitude, Double longitude, String car, Double kmCarXL) {
+        this.id=id;
         this.name = name;
         this.osNumber = osNumber;
         this.contract = contract;
@@ -23,6 +34,10 @@ public class TechnicalEntity  {
         this.longitude = longitude;
         this.car = car;
         this.kmCarXL = kmCarXL;
+    }
+
+    public Integer getId() {
+        return id;
     }
 
     public String getName() {

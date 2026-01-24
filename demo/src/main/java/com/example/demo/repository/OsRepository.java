@@ -14,7 +14,5 @@ public interface OsRepository extends JpaRepository<OsEntity,Integer> {
 
     Optional<OsEntity> findByOsNumber(Integer osNumber);
 
-    Object save(OsEntity osEntity);
-
     OsEntity saveOs(OsEntity osEntity);
 }

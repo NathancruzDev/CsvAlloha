@@ -48,5 +48,10 @@ public class CsvController {
         return ResponseEntity.ok(osReturned);
     }
 
+    @GetMapping("getAllOs")
+    public ResponseEntity<List<OsDto>> getAllUsers(){
+        List<OsDto> allOs=calcServicePerma.getAllOs();
+        return ResponseEntity.ok(allOs);
+    }
 
 }

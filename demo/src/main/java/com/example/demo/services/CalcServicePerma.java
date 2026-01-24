@@ -12,6 +12,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class CalcServicePerma {
@@ -61,12 +62,28 @@ public class CalcServicePerma {
             throw new RuntimeException("404 not found");
         }
         OsEntity osEntity1=osEntity.get();
-        OsDto convertEntityToDtoOs=new OsDto(osEntity1.getContract(),osEntity1.getOsNumber(),
+        OsDto convertEntityToDtoOs=new OsDto(null,osEntity1.getContract(),osEntity1.getOsNumber(),
                 osEntity1.getOccurrence(),osEntity1.getUnit(),osEntity1.getScreeningDate(),osEntity1.getDistanceBaseOs(),osEntity1.getArea(),
                 osEntity1.getLatitude(),osEntity1.getLongitude(),osEntity1.getResponsibleScreening());
 
         return convertEntityToDtoOs;
     }
 
+    public List<OsDto> getAllOs(){
+        return osRepository.findAll().stream()
+                .map(osEntity -> new OsDto(null,
+                        osEntity.getContract(),
+                        osEntity.getOsNumber(),
+                        osEntity.getOccurrence(),
+                        osEntity.getUnit(),
+                        osEntity.getScreeningDate(),
+                        osEntity.getDistanceBaseOs(),
+                        osEntity.getArea(),
+                        osEntity.getLatitude(),
+                        osEntity.getLongitude(),
+                        osEntity.getResponsibleScreening()
+                ))
+                .collect(Collectors.toList());
+    }
 
 }

@@ -1,10 +1,16 @@
 package com.example.demo.model.dtos;
 
 import com.example.demo.model.UnitEnum;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import org.springframework.boot.autoconfigure.web.WebProperties;
 
 public record BaseDto(
+
+        Integer id,
         @NotNull
         UnitEnum unit,
         @NotBlank

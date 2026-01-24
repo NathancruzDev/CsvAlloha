@@ -88,7 +88,7 @@ public class CsvReaderService {
         Double longitude=Double.parseDouble(longitudeStr.trim());
         String responsibleScreening = obj.get(9);
 
-        return new OsDto(contract,osNumber,ocurrence,unit,screeningDate,
+        return new OsDto(null,contract,osNumber,ocurrence,unit,screeningDate,
                 distanceBaseOs,area,
                 latitude,longitude,responsibleScreening);
     }

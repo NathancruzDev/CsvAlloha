@@ -3,12 +3,19 @@ package com.example.demo.model.entitys;
 import com.example.demo.model.dtos.OsDto;
 import com.example.demo.repository.CoordinateInterface;
 import com.example.demo.model.UnitEnum;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
 import java.time.LocalDate;
-
+@Entity
 public class OsEntity implements CoordinateInterface {
 
     private Integer contract;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
     private Integer osNumber;
     private String occurrence;
     private UnitEnum unit;
@@ -20,10 +27,11 @@ public class OsEntity implements CoordinateInterface {
     private Double longitude;
     private String responsibleScreening;
 
-    public OsEntity(Integer contract, Integer osNumber, String occurrence, UnitEnum unit, LocalDate screeningDate,
+    public OsEntity(Integer id,Integer contract, Integer osNumber, String occurrence, UnitEnum unit, LocalDate screeningDate,
                     Double distanceBaseOs, String area, Double latitude, Double longitude, String responsibleScreening) {
+        this.id=id;
         this.contract = contract;
-        osNumber = osNumber;
+        this.osNumber = osNumber;
         this.occurrence = occurrence;
         this.unit = unit;
         this.screeningDate = screeningDate;
@@ -38,6 +46,7 @@ public class OsEntity implements CoordinateInterface {
     }
 
     public OsEntity(OsDto osDto) {
+        this.id=osDto.id();
         this.contract=osDto.contract();
         this.osNumber=osDto.osNumber();
         this.occurrence = osDto.occurence();
@@ -49,6 +58,10 @@ public class OsEntity implements CoordinateInterface {
         this.longitude = osDto.longitude();
         this.responsibleScreening = osDto.responsibleScreening();
 
+    }
+
+    public Integer getId() {
+        return id;
     }
 
     public Integer getContract() {

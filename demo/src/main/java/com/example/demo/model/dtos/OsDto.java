@@ -3,12 +3,15 @@ package com.example.demo.model.dtos;
 import com.example.demo.model.UnitEnum;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.*;
 
 import java.time.LocalDate;
 
 public record OsDto(
+
+        Integer id,
 
         @NotNull(message = "Contract cannot be null")
         @Min(value = 1, message = "Contract must be at least 1")

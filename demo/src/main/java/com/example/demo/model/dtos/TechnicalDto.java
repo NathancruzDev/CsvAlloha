@@ -1,10 +1,14 @@
 package com.example.demo.model.dtos;
 
-<<<<<<< HEAD
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 public record TechnicalDto (
+
+        Integer id,
         @NotBlank(message = "Name cannot be null.")
         String name,
         @NotNull(message = "OS number cannot be null")
@@ -22,21 +26,4 @@ public record TechnicalDto (
 
 ) {
 
-
-=======
-import org.springframework.core.codec.StringDecoder;
-/*
- *
- * */
-public record TechnicalDto(
-        String name,
-        Integer osNumber,
-        Integer contract,
-        Double latitude,
-        Double longitude,
-        String car,
-        Double kmCarXL
-) {
-
->>>>>>> 10289ec (conflicts merge)
 }

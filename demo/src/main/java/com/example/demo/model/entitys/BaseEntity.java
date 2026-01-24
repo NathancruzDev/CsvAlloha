@@ -2,20 +2,33 @@ package com.example.demo.model.entitys;
 
 import com.example.demo.repository.CoordinateInterface;
 import com.example.demo.model.UnitEnum;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
+@Entity
 public class BaseEntity implements CoordinateInterface {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
     private UnitEnum unit;
     private String adress;
     private String area;
     private String Latitude;
     private String Longitude;
 
-    public BaseEntity(UnitEnum unit, String adress, String area, String latitude, String longitude) {
+    public BaseEntity(Integer id,UnitEnum unit, String adress, String area, String latitude, String longitude) {
+        this.id=id;
         this.unit = unit;
         this.adress = adress;
         this.area = area;
         Latitude = latitude;
         Longitude = longitude;
+    }
+
+    public Integer getId() {
+        return id;
     }
 
     public UnitEnum getUnit() {
