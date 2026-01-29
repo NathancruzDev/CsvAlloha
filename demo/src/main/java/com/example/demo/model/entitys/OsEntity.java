@@ -1,5 +1,7 @@
 package com.example.demo.model.entitys;
 
+import com.example.demo.model.dtos.AccumulatedExpensiveDto;
+import com.example.demo.model.dtos.OsActiveDto;
 import com.example.demo.model.dtos.OsDto;
 import com.example.demo.repository.CoordinateInterface;
 import com.example.demo.model.UnitEnum;
@@ -59,8 +61,22 @@ public class OsEntity implements CoordinateInterface {
         this.latitude =  osDto.latitude();
         this.longitude = osDto.longitude();
         this.responsibleScreening = osDto.responsibleScreening();
-        this.isEnable=osDto.isEnable();
     }
+    public OsEntity(OsActiveDto osActiveDto) {
+        this.id=osActiveDto.osDto().id();
+        this.contract=osActiveDto.osDto().contract();
+        this.osNumber=osActiveDto.osDto().osNumber();
+        this.occurrence = osActiveDto.osDto().occurence();
+        this.unit = osActiveDto.osDto().unit();
+        this.screeningDate = osActiveDto.osDto().screeningDate();
+        this.distanceBaseOs = osActiveDto.osDto().distanceBaseOs();
+        this.area = osActiveDto.osDto().area();
+        this.latitude =  osActiveDto.osDto().latitude();
+        this.longitude = osActiveDto.osDto().longitude();
+        this.responsibleScreening = osActiveDto.osDto().responsibleScreening();
+        this.isEnable=osActiveDto.isEnable();
+    }
+
 
     public OsEntity(Integer contract, Integer id, Integer osNumber, String occurrence, UnitEnum unit, LocalDate screeningDate, Double distanceBaseOs, String area, Double latitude, Double longitude, String responsibleScreening) {
         this.contract = contract;
@@ -74,6 +90,9 @@ public class OsEntity implements CoordinateInterface {
         this.latitude = latitude;
         this.longitude = longitude;
         this.responsibleScreening = responsibleScreening;
+    }
+
+    public OsEntity(AccumulatedExpensiveDto accumulatedExpensiveDto) {
     }
 
     public Integer getId() {

@@ -1,6 +1,8 @@
 package com.example.demo.services;
 
+import com.example.demo.model.dtos.OsActiveDto;
 import com.example.demo.model.dtos.OsDto;
+import com.example.demo.model.entitys.AccumulatedExpenseEntity;
 import com.example.demo.model.entitys.OsEntity;
 import com.example.demo.repository.OsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,12 @@ public class CalcServicePerma {
 
     @Autowired
     CsvReaderService csvReaderService;
+
+    @Autowired
+    CalcDistanceService calcDistanceService;
+
+    @Autowired
+    CalcAmountTemp calcAmountTemp;
 
     public OsDto makeOs(OsDto osDto){
 
@@ -84,5 +92,44 @@ public class CalcServicePerma {
                 ))
                 .collect(Collectors.toList());
     }
+
+    //This method does two things because it's part of the business rule that, when deactivated in this system, it accumulates the cost that would have been incurred to go there.
+    public void updateOsInactive(OsActiveDto osActiveDto){
+            Boolean osCheck= osActiveDto.isEnable();
+            OsEntity osEntity = osRepository.findByOsNumber(osActiveDto.osDto().osNumber())
+                .orElseThrow(() -> new RuntimeException("This os doesn't exist in database."));
+
+                if(!osCheck){
+                    throw new RuntimeException("This os is closed");
+                }
+
+                osEntity.setEnable(false);
+                String amount=calcDistanceService.expensiveAvoided(osActiveDto.osDto(),osActiveDto.technicalDto());
+                String cleanFormat=amount.replace("R$", "").trim();
+                cleanFormat=cleanFormat.replace(".", "").replace(",", ".");
+
+                Double convertedAmount=Double.parseDouble(cleanFormat);
+
+                AccumulatedExpenseEntity accumulatedExpenseEntity=new AccumulatedExpenseEntity(convertedAmount);
+
+                osRepository.save(osEntity);
+
+    }
+
+
+    public String osAvoidedSpent(OsActiveDto osActiveDto){
+         return calcDistanceService.expensiveAvoided(osActiveDto.osDto(),osActiveDto.technicalDto());
+    }
+
+    public String osAvoidedSpentByGeoLocation(Double latitude1,Double longitude1,Double latitude2,Double longitude2){
+        Double distance=calcDistanceService.distanceCalculatedByGeoLocation(latitude1,longitude1,latitude2,longitude2);
+        return distance + "km";
+    }
+
+
+    public String amountPlus(){
+        return "R$" + calcAmountTemp.getAllAmountTemp();
+    }
+
 
 }
