@@ -1,6 +1,10 @@
 package com.example.demo.controllers;
 
+import com.example.demo.model.dtos.JSON.GeolocationDistanceJSON.GeolocationDistanceJSON;
+import com.example.demo.model.dtos.OsActiveDto;
 import com.example.demo.model.dtos.OsDto;
+import com.example.demo.model.dtos.TechnicalDto;
+import com.example.demo.model.entitys.OsEntity;
 import com.example.demo.repository.OsRepository;
 import com.example.demo.services.CalcServicePerma;
 import com.example.demo.services.CsvReaderService;
@@ -13,6 +17,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.io.File;
 import java.util.List;
+import java.util.Optional;
 
 
 @RestController
@@ -21,8 +26,10 @@ public class CsvController {
 
     @Autowired
     OsRepository osInterface;
+
     @Autowired
     CsvReaderService csvReaderService;
+
     @Autowired
     CalcServicePerma calcServicePerma;
 
@@ -33,7 +40,12 @@ public class CsvController {
         var uri= uriComponentsBuilder.path("csvB2B/upOsCsv/{osNumber}").buildAndExpand(createdOs.osNumber()).toUri();
         return ResponseEntity.created(uri).body(createdOs);
     }
-
+    @PostMapping("createTechnical")
+    public ResponseEntity<TechnicalDto> postTechnical(@RequestBody TechnicalDto technicalDto, UriComponentsBuilder uriComponentsBuilder){
+        TechnicalDto createdTechnical=calcServicePerma.saveTechnical(technicalDto);
+        var uri = uriComponentsBuilder.path("csvB2B/createTechnical/{id}").buildAndExpand(createdTechnical.id()).toUri();
+        return ResponseEntity.created(uri).body(createdTechnical);
+    }
     @PostMapping("upFile")
     @Transactional
     public ResponseEntity<List<OsDto>> postFile(@RequestParam MultipartFile file, UriComponentsBuilder uriComponentsBuilder){
@@ -49,9 +61,40 @@ public class CsvController {
     }
 
     @GetMapping("getAllOs")
-    public ResponseEntity<List<OsDto>> getAllUsers(){
+    public ResponseEntity<List<OsDto>> getAllOs(){
         List<OsDto> allOs=calcServicePerma.getAllOs();
         return ResponseEntity.ok(allOs);
+    }
+
+    @GetMapping("getOsSpent")
+    public  ResponseEntity<String> getOsSpent(@RequestParam OsActiveDto osActiveDto ){
+        String str=calcServicePerma.osAvoidedSpent(osActiveDto);
+        return ResponseEntity.ok(str);
+    }
+
+
+    @GetMapping("AllAmount")
+    public ResponseEntity<String> getAllAmount(){
+        String str=calcServicePerma.amountPlus();
+        return ResponseEntity.ok(str);
+    }
+@GetMapping("GeoLocationDistance")
+    public ResponseEntity<String> getDistanceByTwoPoints(@RequestBody GeolocationDistanceJSON geolocationDistance){
+        String str=calcServicePerma.osDistanceByGeoLocation(geolocationDistance.latitude1(), geolocationDistance.longitude1(),
+                geolocationDistance.latitude2(), geolocationDistance.longitude2());
+        return ResponseEntity.ok(str);
+    }
+
+    @PutMapping("/{osNumber}")
+    public ResponseEntity<OsActiveDto> inactiveOs(@RequestParam Integer osNUmber){
+        calcServicePerma.updateOsInactive(osNUmber);
+        return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("gellAllOsActive")
+    public ResponseEntity<List<OsActiveDto>> getAllActivesOs(){
+        List<OsActiveDto> allActive=calcServicePerma.getActiveOsEntities();
+        return ResponseEntity.ok(allActive);
     }
 
 }

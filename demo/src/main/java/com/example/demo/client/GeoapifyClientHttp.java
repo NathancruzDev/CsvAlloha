@@ -10,7 +10,7 @@ import java.net.http.HttpResponse;
 public class GeoapifyClientHttp implements ExternalHttpClient {
     //instancia da conexao web.
     private final HttpClient httpClient=HttpClient.newHttpClient();
-    GeoapifyClient geoapifyClient=new GeoapifyClient();
+
 
     @Override
     public String get(String url) throws Exception {

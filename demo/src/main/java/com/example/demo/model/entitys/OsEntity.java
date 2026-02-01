@@ -5,10 +5,7 @@ import com.example.demo.model.dtos.OsActiveDto;
 import com.example.demo.model.dtos.OsDto;
 import com.example.demo.repository.CoordinateInterface;
 import com.example.demo.model.UnitEnum;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.time.LocalDate;
 @Entity
@@ -30,8 +27,15 @@ public class OsEntity implements CoordinateInterface {
     private String responsibleScreening;
     private boolean isEnable;
 
+    @ManyToOne
+    @JoinColumn(name = "technical_id")
+    private TechnicalEntity technical;
+
+
+
+
     public OsEntity(Integer id,Integer contract, Integer osNumber, String occurrence, UnitEnum unit, LocalDate screeningDate,
-                    Double distanceBaseOs, String area, Double latitude, Double longitude, String responsibleScreening,boolean isEnable) {
+                    Double distanceBaseOs, String area, Double latitude, Double longitude, String responsibleScreening,boolean isEnable,TechnicalEntity technical) {
         this.id=id;
         this.contract = contract;
         this.osNumber = osNumber;
@@ -44,6 +48,7 @@ public class OsEntity implements CoordinateInterface {
         this.longitude = longitude;
         this.responsibleScreening = responsibleScreening;
         this.isEnable= isEnable;
+        this.technical=technical;
     }
 
     public OsEntity() {
@@ -171,12 +176,22 @@ public class OsEntity implements CoordinateInterface {
         this.responsibleScreening = responsibleScreening;
     }
 
-    public boolean isEnable() {
+    public boolean getIsEnable() {
         return isEnable;
     }
 
+
     public void setEnable(boolean enable) {
         isEnable = enable;
+    }
+
+
+    public TechnicalEntity getTechnical() {
+        return technical;
+    }
+
+    public void setTechnical(TechnicalEntity technical) {
+        this.technical = technical;
     }
 
     @Override

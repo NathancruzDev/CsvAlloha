@@ -6,4 +6,5 @@ public record OsActiveDto(
        boolean isEnable,
        TechnicalDto technicalDto
 ) {
+
 }

@@ -1,5 +1,6 @@
 package com.example.demo.model.entitys;
 
+import com.example.demo.model.dtos.TechnicalDto;
 import com.example.demo.repository.CoordinateInterface;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -49,6 +50,9 @@ public class TechnicalEntity  {
         this.contract = contract;
         this.name = name;
         this.osNumber = osNumber;
+    }
+
+    public TechnicalEntity(TechnicalDto technicalDto) {
     }
 
     public Integer getId() {

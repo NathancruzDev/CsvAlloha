@@ -3,7 +3,7 @@ package com.example.demo.client;
 
 
 
-public class GeoapifyClient extends GeoapifyClientHttp{
+public class GeoapifyClient extends  GeoapifyClientHttp {
     private final String API_KEY= "83987d49b8d9472a96d632314ee496cc";
     private final String BASE_URL="https://api.geoapify.com/v1/routing";
 

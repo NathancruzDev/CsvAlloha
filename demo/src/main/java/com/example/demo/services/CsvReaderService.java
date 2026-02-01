@@ -19,9 +19,6 @@ import java.util.List;
 
 @Service
 public class CsvReaderService {
-    String path="C:Downloads\teste";
-    File fileCsv=new File(path);
-
 
     @Transactional
     public List<OsDto> fileCsvReader(MultipartFile fileCsv) {
@@ -46,6 +43,7 @@ public class CsvReaderService {
                 OsDto dto = makeDto(values);
 
                 result.add(dto);
+
             }
 
         } catch (Exception e) {
