@@ -1,10 +1,8 @@
 package com.example.demo.controllers;
 
-import com.example.demo.model.dtos.JSON.GeolocationDistanceJSON.GeolocationDistanceJSON;
 import com.example.demo.model.dtos.OsActiveDto;
 import com.example.demo.model.dtos.OsDto;
 import com.example.demo.model.dtos.TechnicalDto;
-import com.example.demo.model.entitys.OsEntity;
 import com.example.demo.repository.OsRepository;
 import com.example.demo.services.CalcServicePerma;
 import com.example.demo.services.CsvReaderService;
@@ -14,10 +12,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.UriComponentsBuilder;
+import com.example.demo.model.dtos.JSON.GeolocationDistanceJSON.*;
 
-import java.io.File;
 import java.util.List;
-import java.util.Optional;
+
 
 
 @RestController
@@ -78,8 +76,8 @@ public class CsvController {
         String str=calcServicePerma.amountPlus();
         return ResponseEntity.ok(str);
     }
-@GetMapping("GeoLocationDistance")
-    public ResponseEntity<String> getDistanceByTwoPoints(@RequestBody GeolocationDistanceJSON geolocationDistance){
+    @GetMapping("GeoLocationDistance")
+    public ResponseEntity<String> getDistanceByTwoPoints(@RequestBody GeolocationDTO geolocationDistance){
         String str=calcServicePerma.osDistanceByGeoLocation(geolocationDistance.latitude1(), geolocationDistance.longitude1(),
                 geolocationDistance.latitude2(), geolocationDistance.longitude2());
         return ResponseEntity.ok(str);
