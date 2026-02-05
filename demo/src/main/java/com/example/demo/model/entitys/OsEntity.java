@@ -9,6 +9,7 @@ import jakarta.persistence.*;
 
 import java.time.LocalDate;
 @Entity
+@Table(name = "os_entity")
 public class OsEntity implements CoordinateInterface {
 
     private Integer contract;
@@ -196,16 +197,16 @@ public class OsEntity implements CoordinateInterface {
 
     @Override
     public String area() {
-        return "";
+        return area;
     }
 
     @Override
     public Double getLatitude() {
-        return 0.0;
+        return latitude;
     }
 
     @Override
     public Double getLongitude() {
-        return 0.0;
+        return longitude;
     }
 }

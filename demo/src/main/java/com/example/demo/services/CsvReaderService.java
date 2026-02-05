@@ -31,6 +31,7 @@ public class CsvReaderService {
         try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(fileCsv.getInputStream()))) {
 
             String line;
+            bufferedReader.readLine();
             while ((line = bufferedReader.readLine()) != null) {
                 String[] columns = line.split(",");
 
@@ -69,9 +70,9 @@ public class CsvReaderService {
         UnitEnum unit=UnitEnum.valueOf(unitStr.trim().toUpperCase());
 
         String screeningDateStr = obj.get(4);
-        LocalDate screeningDate= LocalDate.parse(
+        LocalDate screeningDate = LocalDate.parse(
                 screeningDateStr.trim(),
-                DateTimeFormatter.ofLocalizedDate(FormatStyle.valueOf("dd/MM/yyyy"))
+                DateTimeFormatter.ofPattern("dd/MM/yyyy")
         );
 
         String distanceBaseOsStr = obj.get(5);
@@ -80,14 +81,24 @@ public class CsvReaderService {
         String area = obj.get(6);
 
         String latitudeStr = obj.get(7);
-        Double latitude=Double.parseDouble(latitudeStr.trim());
+        Double latitude = removePointerDouble(obj.get(7).trim());
 
         String longitudeStr = obj.get(8);
-        Double longitude=Double.parseDouble(longitudeStr.trim());
+        Double longitude= removePointerDouble(obj.get(8).trim());
         String responsibleScreening = obj.get(9);
 
         return new OsDto(null,contract,osNumber,ocurrence,unit,screeningDate,
                 distanceBaseOs,area,
                 latitude,longitude,responsibleScreening);
     }
+
+    private Double removePointerDouble(String number){
+        if(number == null || number.isEmpty()){
+            return 0.0;
+        }
+        String parse = number.trim().replace(".", "");
+        return Double.parseDouble(parse);
+    }
 }
+
+
